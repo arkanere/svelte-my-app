@@ -20,11 +20,30 @@
     p {
         margin-bottom: 1rem;
     }
+    .home-link {
+        display: block;
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .home-link a {
+        text-decoration: none;
+        color: #0070f3;
+    }
+
+    .home-link a:hover {
+        text-decoration: underline;
+    }
  </style>
  
  <div class="article-container">
      <h1>Article 2</h1>
      <p>Welcome to my article. This is the first paragraph of your content.</p>
      <p>Continue adding your article's text here. You can structure your article using headings, paragraphs, lists, images, and more.</p>
+      <!-- Link to go back to the homepage -->
+    <div class="home-link">
+        <a href="/">← Back to Home</a>
+    </div>
  </div>
  
