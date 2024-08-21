@@ -1,30 +1,49 @@
 <script>
-    // You can add any JavaScript/TypeScript logic here if needed
- </script>
- 
- <style>
-    /* Optional: Add styles for your article */
-    .article-container {
+    // Titles of the blog articles with links to their respective pages
+    const articles = [
+        { title: "Blog Article 1", link: "/blogs/article1" },
+        { title: "Blog Article 2", link: "/blogs/article2" },
+        { title: "Blog Article 3", link: "/blogs/article3" }
+    ];
+</script>
+
+<style>
+    /* Optional: Add styles for the homepage */
+    .homepage-container {
         max-width: 800px;
         margin: 0 auto;
         padding: 2rem;
         font-family: Arial, sans-serif;
-        line-height: 1.6;
-    }
- 
-    h1 {
         text-align: center;
-        margin-bottom: 1rem;
     }
- 
-    p {
-        margin-bottom: 1rem;
+
+    .article-list {
+        list-style: none;
+        padding: 0;
     }
- </style>
- 
- <div class="article-container">
-     <h1>Your Article Title</h1>
-     <p>Welcome to my article. This is the first paragraph of your content.</p>
-     <p>Continue adding your article's text here. You can structure your article using headings, paragraphs, lists, images, and more.</p>
- </div>
- 
+
+    .article-list li {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .article-list a {
+        text-decoration: none;
+        color: #0070f3;
+    }
+
+    .article-list a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="homepage-container">
+    <h1>Blog Articles</h1>
+    <ul class="article-list">
+        {#each articles as article}
+            <li>
+                <a href={article.link}>{article.title}</a>
+            </li>
+        {/each}
+    </ul>
+</div>
