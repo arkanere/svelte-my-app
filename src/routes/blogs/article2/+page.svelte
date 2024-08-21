@@ -46,7 +46,7 @@
  
  <div class="article-container">
      <h1>Article 2</h1>
-     <img src="/images/article2.jpg" alt="Article2" class="article-image" />
+     <img src="/images/article2.webp" alt="Article2" class="article-image" />
      <p>Welcome to my article. This is the first paragraph of your content.</p>
      <p>Continue adding your article's text here. You can structure your article using headings, paragraphs, lists, images, and more.</p>
       <!-- Link to go back to the homepage -->
