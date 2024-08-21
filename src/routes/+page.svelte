@@ -35,6 +35,17 @@
     .article-list a:hover {
         text-decoration: underline;
     }
+
+    .contact-us-link a {
+        text-decoration: none;
+        color: #0070f3;
+    }
+
+    .contact-us-link a:hover {
+        text-decoration: underline;
+    }
+
+
 </style>
 
 <div class="homepage-container">
@@ -46,4 +57,7 @@
             </li>
         {/each}
     </ul>
+    <div class="contact-us-link">
+    <a href='/contact-us'>Contact us</a>
+    </div>
 </div>

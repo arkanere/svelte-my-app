@@ -20,6 +20,7 @@
     p {
         margin-bottom: 1rem;
     }
+    
     .home-link {
         display: block;
         margin-top: 2rem;
