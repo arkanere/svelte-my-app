@@ -11,6 +11,13 @@
         font-family: Arial, sans-serif;
         line-height: 1.6;
     }
+    .article-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+    }
+
  
     h1 {
         text-align: center;
@@ -39,6 +46,7 @@
  
  <div class="article-container">
      <h1>Article 2</h1>
+     <img src="/images/article2.jpg" alt="Article2" class="article-image" />
      <p>Welcome to my article. This is the first paragraph of your content.</p>
      <p>Continue adding your article's text here. You can structure your article using headings, paragraphs, lists, images, and more.</p>
       <!-- Link to go back to the homepage -->
