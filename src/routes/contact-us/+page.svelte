@@ -12,6 +12,10 @@
             body: new FormData(event.target),
         });
 
+        console.log({ name, phone, message });
+
+        
+
         const result = await response.json();
         success = result.success;
 
@@ -22,7 +26,7 @@
             phone = '';
             message = '';
         } else {
-            alert('There was an issue submitting the form.');
+           // alert('There was an issue submitting the form.');
         }
     }
 </script>

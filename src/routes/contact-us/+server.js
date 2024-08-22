@@ -1,43 +1,58 @@
-
-import { json, error } from '@sveltejs/kit';
-
-import pkg from 'pg';
-const {Pool} = pkg;
+import { createPool } from '@vercel/postgres';
+import { POSTGRES_URL } from '$env/static/private'
 
 
-// Initialize PostgreSQL connection pool with environment variables
-const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL,
-  ssl: {
-    rejectUnauthorized: false // Ensure SSL is used for connection
-  }
+
+// Create a connection pool
+const pool = createPool({
+    connectionString: POSTGRES_URL
 });
 
-// Handler for POST request to save form data
-export async function POST({ request }) {
-  try {
-    const data = await request.json();
-    const { name, phone, message } = data;
-
-    // Validate the data
-    if (!name || !phone || !message) {
-      return error(400, 'All fields are required');
-    }
-
-    // Insert the form data into the PostgreSQL database
+// Function to handle queries
+export async function query(text, params) {
     const client = await pool.connect();
     try {
-      await client.query(
-        'INSERT INTO contact_us_form (name, phone, message) VALUES ($1, $2, $3)',
-        [name, phone, message]
-      );
+        const res = await client.query(text, params);
+        return res;
     } finally {
-      client.release(); // Release client back to pool
+        client.release();
     }
+}
 
-    return json({ success: true });
-  } catch (err) {
-    console.error('Database error:', err);
-    return error(500, 'Internal server error');
-  }
+// Handle POST requests
+export async function POST({ request }) {
+    try {
+        // Get the form data from the request
+        const formData = await request.formData();
+        const name = formData.get('name');
+        const phone = formData.get('phone');
+        const message = formData.get('message');
+
+        // Log the received form data (for verification)
+        console.log('Received form data:', { name, phone, message });
+
+        // Insert the form data into the contact_us_form table
+        const insertQuery = `
+            INSERT INTO contact_us_form (name, phone, message)
+            VALUES ($1, $2, $3)
+            RETURNING id;
+        `;
+        const result = await query(insertQuery, [name, phone, message]);
+
+        // Respond with a success message
+        return new Response(JSON.stringify({
+            success: true,
+            id: result.rows[0].id
+        }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (error) {
+        console.error('Error saving form data:', error);
+        return new Response(JSON.stringify({
+            success: false,
+            error: 'Failed to save form data'
+        }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
 }
