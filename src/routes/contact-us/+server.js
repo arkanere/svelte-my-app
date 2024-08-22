@@ -9,7 +9,7 @@ const pool = createPool({
 });
 
 // Function to handle queries
-export async function query(text, params) {
+export async function _query(text, params) {
     const client = await pool.connect();
     try {
         const res = await client.query(text, params);
@@ -37,7 +37,7 @@ export async function POST({ request }) {
             VALUES ($1, $2, $3)
             RETURNING id;
         `;
-        const result = await query(insertQuery, [name, phone, message]);
+        const result = await _query(insertQuery, [name, phone, message]);
 
         // Respond with a success message
         return new Response(JSON.stringify({
