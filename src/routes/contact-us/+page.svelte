@@ -2,16 +2,28 @@
     let name = '';
     let phone = '';
     let message = '';
+    let success = false;
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        // You can process the form data here (e.g., send it to a server)
-        console.log({ name, phone, message });
-        alert('Form submitted successfully!');
-        // Optionally, clear the form
-        name = '';
-        phone = '';
-        message = '';
+
+        const response = await fetch('/contact-us', {
+            method: 'POST',
+            body: new FormData(event.target),
+        });
+
+        const result = await response.json();
+        success = result.success;
+
+        if (success) {
+            alert('Form submitted successfully!');
+            // Optionally, clear the form
+            name = '';
+            phone = '';
+            message = '';
+        } else {
+            alert('There was an issue submitting the form.');
+        }
     }
 </script>
 
@@ -59,17 +71,17 @@
     <form on:submit={handleSubmit}>
         <div class="form-field">
             <label for="name">Name</label>
-            <input type="text" id="name" bind:value={name} required />
+            <input type="text" id="name" name="name" bind:value={name} required />
         </div>
 
         <div class="form-field">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" bind:value={phone} required />
+            <input type="tel" id="phone" name="phone" bind:value={phone} required />
         </div>
 
         <div class="form-field">
             <label for="message">Message</label>
-            <textarea id="message" bind:value={message} rows="5" required></textarea>
+            <textarea id="message" name="message" bind:value={message} rows="5" required></textarea>
         </div>
 
         <button type="submit">Submit</button>
