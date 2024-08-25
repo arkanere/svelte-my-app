@@ -1,10 +1,13 @@
 <script>
-    export let entries=[];
-    {console.log(entries)}
+    export let data;
+    console.log(data);
+
 </script>
 
 <h1>Admin: Form Submissions</h1>
 
+
+<!-- Displaying the data in a table -->
 <table>
     <thead>
         <tr>
@@ -16,13 +19,13 @@
         </tr>
     </thead>
     <tbody>
-        {#each entries as entry}
+        {#each data.users as user}
             <tr>
-                <td>{entry.id}</td>
-                <td>{entry.name}</td>
-                <td>{entry.phone}</td>
-                <td>{entry.message}</td>
-                <td>{entry.created_at}</td>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.phone}</td>
+                <td>{user.message}</td>
+                <td>{new Date(user.created_at).toLocaleString()}</td>
             </tr>
         {/each}
     </tbody>
@@ -41,3 +44,4 @@
         background-color: #f4f4f4;
     }
 </style>
+
