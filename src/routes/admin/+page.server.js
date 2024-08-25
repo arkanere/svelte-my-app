@@ -3,10 +3,6 @@ import { POSTGRES_URL } from '$env/static/private'
 
 
 
-export const config = {
-    runtime: 'nodejs18.x',
-}
-
 
 export async function load({}){
     const pool = createPool({connectionString: POSTGRES_URL});
