@@ -12,7 +12,7 @@
             body: new FormData(event.target),
         });
 
-        console.log({ name, phone, message });
+        // console.log({ name, phone, message });
 
         
 
