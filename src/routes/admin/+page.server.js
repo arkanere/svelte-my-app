@@ -11,3 +11,4 @@ export async function load({}){
     
     return {users:rows}
 }
+

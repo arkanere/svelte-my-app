@@ -6,24 +6,56 @@
         phone: '',
         message: ''
     };
-    function handleSave(userId) {
-        // Here you would send the updated data to the server to save it in the database
-        console.log('Saving data for user:', editForm);
 
-        // After saving, reset the editId to null to exit edit mode
-        editId = null;
+    async function handleSave() {
+        const formData = new FormData();
+        formData.append('id', editForm.id);
+        formData.append('name', editForm.name);
+        formData.append('phone', editForm.phone);
+        formData.append('message', editForm.message);
+
+        const response = await fetch('/admin', {
+            method: 'PUT',
+            body: formData
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            console.log('Update successful');
+            editId = null; // Exit edit mode
+        } else {
+            console.error('Failed to update:', result.error || 'Unknown Error');
+        }
     }
+
+    async function handleDelete(userId) {
+        if (confirm('Are you sure you want to delete this entry?')) {
+            const url = `/admin?userId=${userId}`;  // Append userId as a query parameter
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+            if (result.success) {
+                console.log('Deletion successful');
+                data.users = data.users.filter(user => user.id !== userId);
+            } else {
+                console.error('Failed to delete:', result.error);
+            }
+        }
+    }
+
 
     
     function handleEdit(user) {
         // Here you can handle the edit logic
-        console.log('Edit user:', user);
+        // console.log('Edit user:', user);
         // Set the current row to edit mode
         editId = user.id;
         editForm = { ...user };
         // You can redirect to an edit page or open an inline edit form
         // For now, we're just logging the user details
     }
+
     function handleCancel() {
         // Reset the editId to exit edit mode without saving
         editId = null;
@@ -70,6 +102,7 @@
                         <td>
                             <!-- Edit Button -->
                             <button on:click={() => handleEdit(user)}>Edit</button>
+                            <button on:click={() => handleDelete(user.id)}>Delete</button>
                         </td>
                     {/if}
                 </tr>
