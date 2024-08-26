@@ -25,7 +25,9 @@ export async function load({ params }) {
             };
         }
         return {
-            props: { user: rows[0] }  
+            props: { user: rows[0]},
+            maxage: 60 
+              
         };
     } catch (error) {
         console.log('catch part of the code')

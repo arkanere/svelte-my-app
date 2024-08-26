@@ -11,8 +11,6 @@
     }
 </script>
 
-<h1>Hello</h1>
-
 {#if user}
     <article>
         <h1>User Details</h1>
